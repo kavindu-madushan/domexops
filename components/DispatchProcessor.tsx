@@ -47,7 +47,7 @@ export const DispatchProcessor: React.FC<DispatchProcessorProps> = ({ rmName }) 
 
   const [isTargetsOpen, setIsTargetsOpen] = useState(false);
   
-  const reportRef = useRef<HTMLDivElement>(null);
+  const exportReportRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -150,15 +150,20 @@ export const DispatchProcessor: React.FC<DispatchProcessorProps> = ({ rmName }) 
   };
 
   const handleDownload = async () => {
-    if (!reportRef.current) return;
+    if (!exportReportRef.current) return;
     try {
-      const canvas = await html2canvas(reportRef.current, { scale: 2 });
+      const canvas = await html2canvas(exportReportRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      });
       const link = document.createElement('a');
       link.download = `Dispatch_Report_${date}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       toast.success("Image downloaded");
     } catch (e) {
+      console.error("Dispatch report export failed", e);
       toast.error("Export failed");
     }
   };
@@ -425,7 +430,6 @@ export const DispatchProcessor: React.FC<DispatchProcessorProps> = ({ rmName }) 
                      <div className="hidden md:flex justify-center p-8 h-full items-start">
                         <div className="transform scale-[0.65] lg:scale-[0.85] origin-top">
                            <DispatchReportCard 
-                              ref={reportRef} 
                               date={date} 
                               items={reportItems} 
                               rmName={rmName}
@@ -433,16 +437,14 @@ export const DispatchProcessor: React.FC<DispatchProcessorProps> = ({ rmName }) 
                         </div>
                      </div>
 
-                     {/* Hidden Card for Mobile Export */}
-                     <div className="md:hidden absolute top-0 left-0 w-full overflow-hidden h-0 opacity-0 pointer-events-none">
-                        <div style={{ width: '800px' }}>
-                           <DispatchReportCard 
-                              ref={reportRef} 
-                              date={date} 
-                              items={reportItems} 
-                              rmName={rmName}
-                           />
-                        </div>
+                     {/* Off-screen export card. Keep it rendered (not display:none) so html2canvas can capture it. */}
+                     <div className="fixed left-[-10000px] top-0 pointer-events-none" aria-hidden="true">
+                        <DispatchReportCard 
+                           ref={exportReportRef} 
+                           date={date} 
+                           items={reportItems} 
+                           rmName={rmName}
+                        />
                      </div>
                   </>
                ) : (
