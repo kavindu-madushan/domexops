@@ -31,6 +31,8 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
     const totalActual = items.reduce((sum, item) => sum + item.dispatch, 0);
     const overallPercentage = totalTarget > 0 ? Math.round((totalActual / totalTarget) * 100) : 0;
     const [year, month, day] = date.split('-');
+    const reportSubtitle = `${regionName} Dispatch`;
+    const reportOwner = !rmName || rmName.toLowerCase() === 'administrator' ? 'Mr.Priyantha' : rmName;
 
     const containerStyle = {
       width: '800px',
@@ -85,9 +87,9 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
               </h2>
               <div className="mt-2 flex items-center gap-2 text-[15px] font-black uppercase tracking-wide text-[#7a000b]">
                 <MapPin size={19} fill="#7a000b" />
-                <span>{regionName} Operations</span>
-                {rmName ? <span>•</span> : null}
-                {rmName ? <span>{rmName}</span> : null}
+                <span>{reportSubtitle}</span>
+                <span>•</span>
+                <span>{reportOwner}</span>
               </div>
             </div>
           </div>
