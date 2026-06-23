@@ -35,7 +35,7 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
     const containerStyle = {
       width: '800px',
       backgroundColor: '#ffffff',
-      fontFamily: '"Arial Narrow", "Impact", "Inter", ui-sans-serif, system-ui, sans-serif',
+      fontFamily: '"Arial Black", "Inter", ui-sans-serif, system-ui, sans-serif',
       overflow: 'hidden'
     };
 
@@ -176,29 +176,29 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
 
                 return (
                   <tr key={idx} className="bg-white">
-                    <td className="h-[64px] border-b border-r border-[#e8e1df] p-2">
+                    <td className="h-[70px] align-middle border-b border-r border-[#e8e1df] p-2">
                       <div className="flex h-[46px] items-center justify-center rounded-lg border-l-4 border-[#ffd21a] bg-gradient-to-br from-[#9b0010] to-[#590006] text-[24px] font-black tracking-wider text-white">
                         {String(idx + 1).padStart(2, '0')}
                       </div>
                     </td>
-                    <td className="h-[64px] border-b border-r border-[#e8e1df] px-3 text-[22px] font-black uppercase leading-none tracking-tight text-[#4f070b]">
-                      <div className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap" title={item.branch}>
+                    <td className="h-[70px] align-middle border-b border-r border-[#e8e1df] px-3 text-[20px] font-black uppercase leading-[1.2] tracking-tight text-[#4f070b]">
+                      <div className="flex h-full max-w-full items-center overflow-hidden text-ellipsis whitespace-nowrap" title={item.branch}>
                         {item.branch}
                       </div>
                     </td>
-                    <td className="h-[64px] border-b border-r border-[#e8e1df] text-center text-[36px] font-black leading-none text-[#8d0010]">
+                    <td className="h-[70px] align-middle border-b border-r border-[#e8e1df] text-center text-[34px] font-black leading-[1.2] text-[#8d0010]">
                       {item.target.toLocaleString()}
                     </td>
-                    <td className="h-[64px] border-b border-r border-[#e8e1df] text-center text-[36px] font-black leading-none text-[#222]">
+                    <td className="h-[70px] align-middle border-b border-r border-[#e8e1df] text-center text-[34px] font-black leading-[1.2] text-[#222]">
                       {item.dispatch.toLocaleString()}
                     </td>
-                    <td className={`h-[64px] border-b border-r border-[#e8e1df] px-1 text-center text-[31px] font-black leading-none ${percentageColor}`}>
-                      <div className="max-w-full overflow-hidden whitespace-nowrap">
+                    <td className={`h-[70px] align-middle border-b border-r border-[#e8e1df] px-1 text-center text-[29px] font-black leading-[1.2] ${percentageColor}`}>
+                      <div className="flex h-full max-w-full items-center justify-center overflow-hidden whitespace-nowrap">
                         {Math.round(item.percentage)}%
                       </div>
                     </td>
-                    <td className="h-[64px] border-b border-[#e8e1df] px-3 text-center">
-                      <span className={`inline-flex min-w-[100px] items-center justify-center gap-1.5 rounded-full px-2 py-2 text-[12px] font-black uppercase shadow ${statusBadge}`}>
+                    <td className="h-[70px] align-middle border-b border-[#e8e1df] px-3 text-center">
+                      <span className={`inline-flex min-w-[100px] items-center justify-center gap-1.5 rounded-full px-2 py-2 text-[12px] font-black uppercase leading-[1.2] shadow ${statusBadge}`}>
                         {isExcellent ? <Star size={18} fill="white" /> : isGood ? <ThumbsUp size={18} fill="currentColor" /> : <TrendingDown size={18} />}
                         {isExcellent ? 'Excellent' : isGood ? 'Good' : 'Poor'}
                       </span>
