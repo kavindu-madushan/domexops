@@ -31,8 +31,8 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
     const totalActual = items.reduce((sum, item) => sum + item.dispatch, 0);
     const overallPercentage = totalTarget > 0 ? Math.round((totalActual / totalTarget) * 100) : 0;
     const [year, month, day] = date.split('-');
-    const reportSubtitle = `${regionName} Dispatch`;
-    const reportOwner = !rmName || rmName.toLowerCase() === 'administrator' ? 'Mr.Priyantha' : rmName;
+    const reportSubtitle = 'Regional Dispatch';
+    const reportOwner = 'Mr.Priyantha';
 
     const containerStyle = {
       width: '800px',
