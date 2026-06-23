@@ -122,7 +122,7 @@ export const DispatchReportTemplate = forwardRef<HTMLDivElement, DispatchReportT
                 {[...Array(5)].map((_, i) => <div key={i} className="border-t border-slate-400 w-full h-0"></div>)}
              </div>
              
-             <svg className="absolute inset-0 w-full h-full overflow-visible" preserveAspectRatio="none">
+             <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
                <polyline
                  fill="none"
                  stroke="#3b82f6"
@@ -133,7 +133,7 @@ export const DispatchReportTemplate = forwardRef<HTMLDivElement, DispatchReportT
                    const count = trendData.length;
                    const x = count > 1 ? (i / (count - 1)) * 100 : 50;
                    const y = 100 - ((d.total / maxTrend) * 100);
-                   return `${x}%,${y}%`;
+                   return `${x},${y}`;
                  }).join(' ')}
                />
                {trendData.map((d, i) => {
@@ -141,7 +141,7 @@ export const DispatchReportTemplate = forwardRef<HTMLDivElement, DispatchReportT
                   const x = count > 1 ? (i / (count - 1)) * 100 : 50;
                   const y = 100 - ((d.total / maxTrend) * 100);
                   return (
-                    <circle key={i} cx={`${x}%`} cy={`${y}%`} r="3" fill="white" stroke="#3b82f6" strokeWidth="2" />
+                    <circle key={i} cx={x} cy={y} r="3" fill="white" stroke="#3b82f6" strokeWidth="2" />
                   );
                })}
              </svg>
