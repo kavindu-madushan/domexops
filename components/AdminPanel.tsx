@@ -41,9 +41,10 @@ interface Branch {
 }
 
 type AdminView = 'branches' | 'global_reports' | 'leaderboard' | 'notices' | 'dispatch';
+const AUTO_DISPATCH_ONLY_MODE = true;
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, renderBranchView, isSuperAdmin, onOpenDbSetup }) => {
-  const [currentView, setCurrentView] = useState<AdminView>('branches');
+  const [currentView, setCurrentView] = useState<AdminView>('dispatch');
   const [branches, setBranches] = useState<Branch[]>([]);
   const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -57,7 +58,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, renderBranchVi
   const [isDevModalOpen, setIsDevModalOpen] = useState(false);
 
   useEffect(() => {
-    loadBranches();
+    if (!AUTO_DISPATCH_ONLY_MODE) {
+      loadBranches();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   const loadBranches = async () => {
@@ -210,38 +215,44 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, renderBranchVi
 
         {/* Navigation Tabs */}
         <div className="p-4 flex flex-col gap-2">
-           <button 
-             onClick={() => { setCurrentView('branches'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
-             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'branches' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
-           >
-              <Users size={18} /> User Management
-           </button>
+           {!AUTO_DISPATCH_ONLY_MODE && (
+             <button 
+               onClick={() => { setCurrentView('branches'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
+               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'branches' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+             >
+                <Users size={18} /> User Management
+             </button>
+           )}
            <button 
              onClick={() => { setCurrentView('dispatch'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'dispatch' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
            >
               <Truck size={18} /> Auto-Dispatch
            </button>
-           <button 
-             onClick={() => { setCurrentView('notices'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
-             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'notices' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
-           >
-              <Megaphone size={18} /> Notices
-           </button>
-           <button 
-             onClick={() => { setCurrentView('global_reports'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
-             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'global_reports' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
-           >
-              <Globe size={18} /> Global Reports
-           </button>
-           <button 
-             onClick={loadLeaderboard}
-             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'leaderboard' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
-           >
-              <Trophy size={18} /> Leaderboard
-           </button>
+           {!AUTO_DISPATCH_ONLY_MODE && (
+             <>
+               <button 
+                 onClick={() => { setCurrentView('notices'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
+                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'notices' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+               >
+                  <Megaphone size={18} /> Notices
+               </button>
+               <button 
+                 onClick={() => { setCurrentView('global_reports'); setSelectedBranch(null); setIsMobileMenuOpen(false); }}
+                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'global_reports' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+               >
+                  <Globe size={18} /> Global Reports
+               </button>
+               <button 
+                 onClick={loadLeaderboard}
+                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${currentView === 'leaderboard' ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+               >
+                  <Trophy size={18} /> Leaderboard
+               </button>
+             </>
+           )}
            
-           {isSuperAdmin && onOpenDbSetup && (
+           {!AUTO_DISPATCH_ONLY_MODE && isSuperAdmin && onOpenDbSetup && (
              <button 
                onClick={() => { onOpenDbSetup(); setIsMobileMenuOpen(false); }}
                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all text-amber-400 hover:bg-slate-800 hover:text-amber-300 mt-2 border border-dashed border-slate-700"
@@ -252,7 +263,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, renderBranchVi
         </div>
 
         {/* Sidebar Branch List (Collapsed View or Quick Access) */}
-        {currentView === 'branches' && !selectedBranch && (
+        {!AUTO_DISPATCH_ONLY_MODE && currentView === 'branches' && !selectedBranch && (
           <div className="flex-1 overflow-hidden flex flex-col border-t border-slate-800 pt-4">
              <div className="px-4 mb-2">
                 <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Quick Access</div>
@@ -301,21 +312,25 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, renderBranchVi
         )}
         
         {/* Spacer */}
-        {(currentView !== 'branches' || selectedBranch) && <div className="flex-1"></div>}
+        {(AUTO_DISPATCH_ONLY_MODE || currentView !== 'branches' || selectedBranch) && <div className="flex-1"></div>}
 
         <div className="p-4 border-t border-slate-800 bg-slate-900 space-y-2">
-           <button 
-              onClick={() => { setIsDevModalOpen(true); setIsMobileMenuOpen(false); }}
-              className="w-full flex items-center gap-3 text-emerald-400 hover:bg-emerald-500/10 hover:text-emerald-300 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
-           >
-              <Code2 size={14} /> Developer Support
-           </button>
-           <button 
-              onClick={() => { setIsSettingsOpen(true); setIsMobileMenuOpen(false); }}
-              className="w-full flex items-center gap-3 text-slate-400 hover:bg-slate-800 hover:text-white px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
-           >
-              <Settings size={14} /> Admin Settings
-           </button>
+           {!AUTO_DISPATCH_ONLY_MODE && (
+             <>
+               <button 
+                  onClick={() => { setIsDevModalOpen(true); setIsMobileMenuOpen(false); }}
+                  className="w-full flex items-center gap-3 text-emerald-400 hover:bg-emerald-500/10 hover:text-emerald-300 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
+               >
+                  <Code2 size={14} /> Developer Support
+               </button>
+               <button 
+                  onClick={() => { setIsSettingsOpen(true); setIsMobileMenuOpen(false); }}
+                  className="w-full flex items-center gap-3 text-slate-400 hover:bg-slate-800 hover:text-white px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
+               >
+                  <Settings size={14} /> Admin Settings
+               </button>
+             </>
+           )}
            <button 
               onClick={onLogout}
               className="w-full flex items-center gap-3 text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
@@ -334,7 +349,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onLogout, renderBranchVi
       {/* Main Content Area */}
       <main className="flex-1 overflow-hidden relative flex flex-col bg-slate-50 transition-all duration-300">
         
-        {fetchError ? (
+        {!AUTO_DISPATCH_ONLY_MODE && fetchError ? (
            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
               <div className="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mb-4">
                  <AlertTriangle size={32} />

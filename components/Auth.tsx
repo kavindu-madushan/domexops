@@ -9,6 +9,7 @@ interface AuthProps {
 }
 
 type LoginRole = 'branch' | 'rm';
+const AUTO_DISPATCH_ONLY_MODE = true;
 
 export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -122,10 +123,16 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
              <img src="https://domex.lk/public/image/domex_logo.png" alt="Domex" className="h-16 w-auto object-contain" />
           </div>
           <h1 className="text-2xl font-black text-slate-800 tracking-tight">Operations Portal</h1>
-          <p className="text-slate-500 font-medium">Courier Management System</p>
+        <p className="text-slate-500 font-medium">Courier Management System</p>
+        {AUTO_DISPATCH_ONLY_MODE && (
+          <div className="mt-3 rounded-full bg-blue-50 px-4 py-1.5 text-[11px] font-black uppercase tracking-wider text-blue-700">
+            Auto-Dispatch Only
+          </div>
+        )}
         </div>
         
         {/* Role Toggle */}
+        {!AUTO_DISPATCH_ONLY_MODE && (
         <div className="flex bg-slate-100 p-1 rounded-xl mb-6">
            <button
              onClick={() => setActiveRole('branch')}
@@ -140,7 +147,9 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
              <Briefcase size={16} /> Regional Manager
            </button>
         </div>
+        )}
 
+        {!AUTO_DISPATCH_ONLY_MODE && (
         <div className="bg-slate-50 p-1.5 rounded-xl flex mb-6 relative">
           <button 
             onClick={() => { setIsLogin(true); setError(''); }}
@@ -155,6 +164,7 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
             Register
           </button>
         </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           

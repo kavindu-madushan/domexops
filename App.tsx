@@ -10,10 +10,12 @@ import { ToastContainer } from './components/ui/ToastContainer';
 import { ToolsOverlay } from './components/ToolsOverlay';
 import { NoticePopup } from './components/NoticePopup';
 import { User } from './types';
-import { Loader2, ShieldAlert, WifiOff } from 'lucide-react';
+import { Loader2, LogOut, ShieldAlert, Truck, WifiOff } from 'lucide-react';
 import { fetchUserSettings } from './services/db';
 import { supabase } from './supabaseClient';
 import { toast } from './services/toast';
+
+const AUTO_DISPATCH_ONLY_MODE = true;
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -201,6 +203,31 @@ const App: React.FC = () => {
   }
 
   if (isRM) {
+     if (AUTO_DISPATCH_ONLY_MODE) {
+        return (
+          <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
+            <ToastContainer />
+            <div className="min-h-screen flex items-center justify-center p-4">
+              <div className="bg-white max-w-md w-full rounded-3xl shadow-xl border border-slate-100 p-8 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                  <Truck size={34} />
+                </div>
+                <h2 className="text-2xl font-black text-slate-800 mb-2">Auto-Dispatch Only Mode</h2>
+                <p className="text-slate-500 mb-6">
+                  Other dashboards are temporarily disabled. Please use an admin account to access Auto-Dispatch.
+                </p>
+                <button
+                  onClick={handleLogout}
+                  className="w-full py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 flex items-center justify-center gap-2"
+                >
+                  <LogOut size={18} /> Return to Login
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+     }
+
      return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
            <ToastContainer />
@@ -210,6 +237,31 @@ const App: React.FC = () => {
   }
 
   // Regular Branch User
+  if (AUTO_DISPATCH_ONLY_MODE) {
+    return (
+      <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
+        <ToastContainer />
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <div className="bg-white max-w-md w-full rounded-3xl shadow-xl border border-slate-100 p-8 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <Truck size={34} />
+            </div>
+            <h2 className="text-2xl font-black text-slate-800 mb-2">Auto-Dispatch Only Mode</h2>
+            <p className="text-slate-500 mb-6">
+              Other dashboards are temporarily disabled. Please use an admin account to access Auto-Dispatch.
+            </p>
+            <button
+              onClick={handleLogout}
+              className="w-full py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 flex items-center justify-center gap-2"
+            >
+              <LogOut size={18} /> Return to Login
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 flex flex-col lg:flex-row print:block">
       <ToastContainer />
