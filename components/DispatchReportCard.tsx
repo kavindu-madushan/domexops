@@ -50,12 +50,11 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
           </div>
 
           <div className="relative z-10">
-            <div className="text-[56px] font-black italic leading-[0.95] tracking-[-4px] text-[#ffd21a] drop-shadow">
-              -DOMEX-
-            </div>
-            <div className="mt-3 text-[17px] font-black uppercase tracking-[0.33em] text-white">
-              We Deliver Islandwide
-            </div>
+            <img
+              src="/assets/domex-logo.png"
+              alt="DOMEX - We Deliver Islandwide"
+              className="h-[118px] w-[455px] object-contain object-left"
+            />
           </div>
 
           <div className="absolute right-6 top-5 z-20 w-[226px] rounded-2xl border-2 border-[#ffd21a] bg-[#89000e] px-4 py-3 text-center shadow-xl">
