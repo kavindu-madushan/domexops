@@ -42,25 +42,25 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
     return (
       <div ref={ref} style={containerStyle} className="shadow-2xl text-[#2b0509]">
         {/* Brand Header */}
-        <div className="relative h-[146px] overflow-hidden bg-gradient-to-r from-[#7a000b] via-[#960010] to-[#4a0007] px-7 pt-6 text-white">
-          <div className="absolute right-20 top-6 text-[#ffd21a] opacity-15">
-            <Truck size={190} strokeWidth={1.4} />
+        <div className="relative h-[172px] overflow-hidden bg-gradient-to-r from-[#7a000b] via-[#960010] to-[#4a0007] px-7 pt-6 text-white">
+          <div className="absolute right-20 top-5 text-[#ffd21a] opacity-15">
+            <Truck size={180} strokeWidth={1.4} />
           </div>
 
           <div className="relative z-10">
-            <div className="text-[58px] font-black italic leading-none tracking-[-4px] text-[#ffd21a] drop-shadow">
+            <div className="text-[56px] font-black italic leading-[0.95] tracking-[-4px] text-[#ffd21a] drop-shadow">
               -DOMEX-
             </div>
-            <div className="mt-2 text-[18px] font-black uppercase tracking-[0.34em] text-white">
+            <div className="mt-3 text-[17px] font-black uppercase tracking-[0.33em] text-white">
               We Deliver Islandwide
             </div>
           </div>
 
-          <div className="absolute right-6 top-8 z-20 rounded-2xl border-2 border-[#ffd21a] bg-[#89000e] px-5 py-4 text-center shadow-xl">
-            <div className="mb-1 text-[12px] font-black uppercase tracking-wide text-[#ffd21a]">Report Date</div>
-            <div className="flex items-center gap-3">
-              <CalendarDays size={34} className="text-[#ffd21a]" />
-              <div className="text-[38px] font-black leading-[0.95] tracking-widest text-white">
+          <div className="absolute right-6 top-5 z-20 w-[226px] rounded-2xl border-2 border-[#ffd21a] bg-[#89000e] px-4 py-3 text-center shadow-xl">
+            <div className="mb-2 text-[11px] font-black uppercase tracking-wide text-[#ffd21a]">Report Date</div>
+            <div className="flex items-center justify-center gap-3">
+              <CalendarDays size={31} className="shrink-0 text-[#ffd21a]" />
+              <div className="text-[34px] font-black leading-[0.98] tracking-widest text-white">
                 {year || date}
                 {month && day ? (
                   <>
@@ -76,15 +76,15 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
         {/* Title Ribbon */}
         <div className="relative border-b-[5px] border-[#8d0010] bg-gradient-to-r from-[#ffd21a] via-[#ffe27a] to-[#fff3b0] px-5 py-4">
           <div className="flex items-center gap-5">
-            <div className="flex h-[74px] w-[118px] items-center justify-center rounded-2xl bg-gradient-to-br from-[#a90013] to-[#590006] text-[#ffd21a] shadow-lg">
-              <Truck size={56} strokeWidth={2.6} />
+            <div className="flex h-[70px] w-[112px] items-center justify-center rounded-2xl bg-gradient-to-br from-[#a90013] to-[#590006] text-[#ffd21a] shadow-lg">
+              <Truck size={52} strokeWidth={2.6} />
             </div>
             <div>
-              <h2 className="text-[48px] font-black uppercase leading-none tracking-[0.06em] text-[#8d0010]">
+              <h2 className="text-[45px] font-black uppercase leading-[1] tracking-[0.06em] text-[#8d0010]">
                 Dispatch Report
               </h2>
-              <div className="mt-3 flex items-center gap-2 text-[16px] font-black uppercase tracking-wide text-[#7a000b]">
-                <MapPin size={21} fill="#7a000b" />
+              <div className="mt-2 flex items-center gap-2 text-[15px] font-black uppercase tracking-wide text-[#7a000b]">
+                <MapPin size={19} fill="#7a000b" />
                 <span>{regionName} Operations</span>
                 {rmName ? <span>•</span> : null}
                 {rmName ? <span>{rmName}</span> : null}
@@ -95,38 +95,35 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
 
         <div className="bg-[#f7f7f5] px-5 py-4">
           {/* Summary */}
-          <div className="mb-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-[#8b000e] via-[#520006] to-[#82000d] px-6 py-5 text-white shadow-lg">
-            <div className="flex items-center gap-4">
-              <Target size={47} className="text-[#ffd21a]" />
+          <div className="mb-4 grid grid-cols-4 items-center rounded-2xl bg-gradient-to-r from-[#8b000e] via-[#520006] to-[#82000d] px-5 py-4 text-white shadow-lg">
+            <div className="flex min-w-0 items-center gap-3 border-r border-[#ffd21a]/55 pr-4">
+              <Target size={40} className="shrink-0 text-[#ffd21a]" />
               <div>
-                <div className="text-[14px] font-bold uppercase tracking-wide">Total Target</div>
-                <div className="text-[44px] font-black leading-none text-[#ffd21a]">{totalTarget.toLocaleString()}</div>
+                <div className="text-[12px] font-black uppercase tracking-wide">Total Target</div>
+                <div className="text-[36px] font-black leading-[1.05] text-[#ffd21a]">{totalTarget.toLocaleString()}</div>
               </div>
             </div>
-            <div className="h-16 w-px bg-[#ffd21a]/60" />
-            <div className="flex items-center gap-4">
-              <Package size={44} className="text-[#ffd21a]" />
+            <div className="flex min-w-0 items-center gap-3 border-r border-[#ffd21a]/55 px-4">
+              <Package size={38} className="shrink-0 text-[#ffd21a]" />
               <div>
-                <div className="text-[14px] font-bold uppercase tracking-wide">Total Actual</div>
-                <div className="text-[44px] font-black leading-none">{totalActual.toLocaleString()}</div>
+                <div className="text-[12px] font-black uppercase tracking-wide">Total Actual</div>
+                <div className="text-[36px] font-black leading-[1.05]">{totalActual.toLocaleString()}</div>
               </div>
             </div>
-            <div className="h-16 w-px bg-[#ffd21a]/60" />
-            <div className="flex items-center gap-4">
-              <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full border-[6px] border-[#4dde55]">
-                <Percent size={30} className="text-white" />
+            <div className="flex min-w-0 items-center gap-3 border-r border-[#ffd21a]/55 px-4">
+              <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border-[5px] border-[#4dde55]">
+                <Percent size={26} className="text-white" />
               </div>
               <div>
-                <div className="text-[14px] font-bold uppercase tracking-wide">Overall %</div>
-                <div className="text-[44px] font-black leading-none text-[#58f05b]">{overallPercentage}%</div>
+                <div className="text-[12px] font-black uppercase tracking-wide">Overall %</div>
+                <div className="text-[36px] font-black leading-[1.05] text-[#58f05b]">{overallPercentage}%</div>
               </div>
             </div>
-            <div className="h-16 w-px bg-[#ffd21a]/60" />
-            <div className="flex items-center gap-4">
-              <TrendingUp size={46} className="text-[#ffd21a]" />
+            <div className="flex min-w-0 items-center gap-3 pl-4">
+              <TrendingUp size={38} className="shrink-0 text-[#ffd21a]" />
               <div>
-                <div className="text-[14px] font-bold uppercase tracking-wide">Branches</div>
-                <div className="text-[44px] font-black leading-none">{items.length}</div>
+                <div className="text-[12px] font-black uppercase tracking-wide">Branches</div>
+                <div className="text-[36px] font-black leading-[1.05]">{items.length}</div>
               </div>
             </div>
           </div>
@@ -134,31 +131,31 @@ export const DispatchReportCard = forwardRef<HTMLDivElement, DispatchReportCardP
           {/* Table */}
           <table className="w-full table-fixed overflow-hidden rounded-xl border-separate border-spacing-0 bg-white shadow-lg">
             <thead>
-              <tr className="bg-gradient-to-r from-[#8b000e] to-[#550006] text-[15px] font-black uppercase tracking-wider text-white">
-                <th className="w-[64px] border-r border-[#ffd21a]/70 p-3 text-center"></th>
-                <th className="border-r border-[#ffd21a]/70 p-3 text-left">
-                  <div className="flex items-center gap-3">
-                    <Building2 size={24} className="text-[#ffd21a]" /> Branch
+              <tr className="bg-gradient-to-r from-[#8b000e] to-[#550006] text-[14px] font-black uppercase tracking-wide text-white">
+                <th className="w-[64px] border-r border-[#ffd21a]/70 p-2.5 text-center"></th>
+                <th className="border-r border-[#ffd21a]/70 p-2.5 text-left">
+                  <div className="flex items-center gap-2.5">
+                    <Building2 size={22} className="shrink-0 text-[#ffd21a]" /> Branch
                   </div>
                 </th>
-                <th className="w-[112px] border-r border-[#ffd21a]/70 p-3 text-center">
+                <th className="w-[112px] border-r border-[#ffd21a]/70 p-2.5 text-center">
                   <div className="flex items-center justify-center gap-2">
-                    <Target size={22} className="text-[#ffd21a]" /> Target
+                    <Target size={20} className="shrink-0 text-[#ffd21a]" /> Target
                   </div>
                 </th>
-                <th className="w-[112px] border-r border-[#ffd21a]/70 p-3 text-center">
+                <th className="w-[112px] border-r border-[#ffd21a]/70 p-2.5 text-center">
                   <div className="flex items-center justify-center gap-2">
-                    <Package size={22} /> Actual
+                    <Package size={20} className="shrink-0" /> Actual
                   </div>
                 </th>
-                <th className="w-[108px] border-r border-[#ffd21a]/70 p-3 text-center">
+                <th className="w-[108px] border-r border-[#ffd21a]/70 p-2.5 text-center">
                   <div className="flex items-center justify-center gap-2">
-                    <Percent size={22} /> %
+                    <Percent size={20} className="shrink-0" /> %
                   </div>
                 </th>
-                <th className="w-[134px] p-3 text-center">
+                <th className="w-[134px] p-2.5 text-center">
                   <div className="flex items-center justify-center gap-2">
-                    <Medal size={23} className="text-[#ffd21a]" /> Status
+                    <Medal size={21} className="shrink-0 text-[#ffd21a]" /> Status
                   </div>
                 </th>
               </tr>
